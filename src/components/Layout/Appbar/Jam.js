@@ -37,7 +37,7 @@ const Jam = () => {
         <Typography
             sx={{
                 mr: 3,
-                fontSize: '14px',
+                fontSize: { xs: '11px', md: '13px', lg: '14px', xl: '14px' },
                 fontFamily: 'monospace',
                 fontWeight: 500,
                 color: 'white',

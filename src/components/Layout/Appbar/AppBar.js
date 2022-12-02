@@ -45,7 +45,7 @@ const CustomAppBar = ({ setOpen }) => {
             aria-label="Open Menu"
             onClick={() => setOpen(true)}
             edge="start"
-            sx={{ mr: 2 }}
+            sx={{ mr: '2px' }}
           >
             <MenuIcon />
           </IconButton>
@@ -59,7 +59,7 @@ const CustomAppBar = ({ setOpen }) => {
             aria-label="Close Menu"
             onClick={() => setOpen(false)}
             edge="start"
-            sx={{ mr: 2 }}
+            sx={{ mr: '2px' }}
           >
             <ChevronLeftIcon />
           </IconButton>
@@ -69,7 +69,7 @@ const CustomAppBar = ({ setOpen }) => {
   }
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} drawerWidth={drawerWidth}>
+    <AppBar position="fixed" sx={{ backgroundColor: '#566a7d', zIndex: (theme) => theme.zIndex.drawer + 1 }} drawerWidth={drawerWidth}>
 
       {/* Container */}
       <Container maxWidth="xl">
@@ -86,9 +86,9 @@ const CustomAppBar = ({ setOpen }) => {
           </Box>
 
         </Toolbar>
-        
+
       </Container>
-      
+
     </AppBar>
   );
 }

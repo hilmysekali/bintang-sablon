@@ -5,7 +5,7 @@ import { CustomAppBar } from "../components/Layout/Appbar";
 import { SideBar } from "../components/Layout/Drawer";
 import { Footer } from '../components/Layout/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateDrawer } from '../features/themeSlice';
+import { updateDrawer, updateLoading } from '../features/themeSlice';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' && prop !== 'isSmall' && prop !== 'drawerWidth' })(
     ({ theme, open, isSmall, drawerWidth }) => ({
@@ -46,20 +46,7 @@ const Layout = props => {
     }
 
     React.useEffect(() => {
-        // const check = () => {
-        //     var _lsTotal = 0,
-        //         _xLen, _x;
-        //     for (_x in localStorage) {
-        //         if (!localStorage.hasOwnProperty(_x)) {
-        //             continue;
-        //         }
-        //         _xLen = ((localStorage[_x].length + _x.length) * 2);
-        //         _lsTotal += _xLen;
-        //         console.log(_x.substr(0, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
-        //     };
-        //     console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
-        // }
-        // check();
+        // dispatch(updateLoading(true));
         if (isSmall) {
             dispatch(updateDrawer(false));
         } else {

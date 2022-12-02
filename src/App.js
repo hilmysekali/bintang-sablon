@@ -19,6 +19,7 @@ import Checkout from './pages/Checkout';
 import { NotFound, Refused } from './pages/ErrorPage';
 import './index.css';
 import ToLogin from './pages/ToLogin';
+import socket from './config/socket';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,8 +29,6 @@ function App() {
     if (!user) {
       dispatch(getMe());
     }
-
-    // Check LocalStorage size;
   }, [dispatch, user]);
 
   return (
@@ -47,25 +46,25 @@ function App() {
 
             {/* ROLE BASED */}
             {/* Owner, Customer Service */}
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/pendapatan" element={<Pendapatan />} />
+            <Route path="/dashboard" element={<Dashboard socket={socket} />} />
+            <Route path="/pendapatan" element={<Pendapatan socket={socket} />} />
             {/* add Root */}
-            <Route path="/rekap" element={<Rekap />} />
+            <Route path="/rekap" element={<Rekap socket={socket} />} />
 
             {/* Customer Service, Desainer, Admin Produksi, Root */}
-            <Route path="/antrian" element={<Antrian />} />
+            <Route path="/antrian" element={<Antrian socket={socket} />} />
 
             {/* Desainer & Admin Produksi */}
-            <Route path="/my-project" element={<SedangDikerjakan />} />
+            <Route path="/my-project" element={<SedangDikerjakan socket={socket} />} />
             {/* Add Owner */}
-            <Route path="/pencapaian" element={<Pencapaian />} />
+            <Route path="/pencapaian" element={<Pencapaian socket={socket} />} />
 
             {/* Owner only */}
             <Route path="/pengaturan" element={<Pengaturan />} />
             <Route path="/data_user" element={<DataUser />} />
 
             {/* CS only */}
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout socket={socket} />} />
             <Route path='*' element={<NotFound />} />
           </Route>
           <Route path='*' element={<ToLogin />} />

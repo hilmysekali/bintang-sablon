@@ -7,7 +7,8 @@ import {
     MenuItem,
     ListItemIcon,
     Typography,
-    Divider
+    Divider,
+    Skeleton
 } from '@mui/material';
 import {
     BookmarkBorder as BookmarkBorderIcon,
@@ -26,7 +27,7 @@ const Profile = () => {
     };
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const { user } = useSelector(state => state.auth);
 
     const handleCloseUserMenu = () => {
@@ -35,7 +36,7 @@ const Profile = () => {
 
     const logoutFunction = async () => {
         const logout = await api().post('/api/logout').then((e) => {
-            if(e.status === 200) {
+            if (e.status === 200) {
                 localStorage.removeItem('user');
                 navigate('/');
                 dispatch(reset());
@@ -48,7 +49,9 @@ const Profile = () => {
         <>
             <Tooltip title="Profile">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar sx={{ border: '3px solid white' }} alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg" />
+                    {user ? (
+                        <Avatar sx={{ border: '3px solid white', bgcolor: user.color }} alt={user.name} src={user.photo}>{user.name[0]}</Avatar>
+                    ) : <Skeleton sx={{ bgcolor: 'grey.300' }} variant="circular" animation="wave"><Avatar /></Skeleton>}
                 </IconButton>
             </Tooltip>
             <Menu
@@ -67,23 +70,23 @@ const Profile = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                <MenuItem sx={{pointerEvents: 'none', cursor: 'default'}}>
+                <MenuItem sx={{ pointerEvents: 'none', cursor: 'default' }}>
                     <ListItemIcon>
                         <AccountCircleIcon fontSize="small" />
                     </ListItemIcon>
                     <Typography textAlign="center" noWrap>{user ? user.name : '-'}</Typography>
                 </MenuItem>
-                <MenuItem sx={{pointerEvents: 'none', cursor: 'default'}}>
+                <MenuItem sx={{ pointerEvents: 'none', cursor: 'default' }}>
                     <ListItemIcon>
                         <BookmarkBorderIcon fontSize="small" />
                     </ListItemIcon>
-                    <Typography textAlign="center" noWrap>{user ? user.username : '-'}</Typography>
+                    <Typography textAlign="center" noWrap>{user ? user.usercode : '-'}</Typography>
                 </MenuItem>
-                <MenuItem sx={{pointerEvents: 'none', cursor: 'default'}}>
+                <MenuItem sx={{ pointerEvents: 'none', cursor: 'default' }}>
                     <ListItemIcon>
                         <BookmarkBorderIcon fontSize="small" />
                     </ListItemIcon>
-                    <Typography textAlign="center" noWrap>{user ? user.role : '-'}</Typography>
+                    <Typography textAlign="center" noWrap>{user ? user.role.toUpperCase().split('_').join(' ') : '-'}</Typography>
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => logoutFunction()} disabled={loading}>

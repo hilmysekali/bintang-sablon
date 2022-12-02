@@ -9,4 +9,8 @@ export const store = configureStore({
     theme: themeReducer,
     auth: authReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

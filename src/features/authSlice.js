@@ -16,7 +16,6 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async (user, thunkAP
             username: user.username,
             password: user.password
         });
-        console.log(response.data)
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -28,7 +27,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async (user, thunkAP
 
 export const getMe = createAsyncThunk("user/getMe", async (_, thunkAPI) => {
     try {
-        const response = await api().get('/api/user');
+        const response = await api().get('/api/me');
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -57,6 +56,22 @@ export const authSlice = createSlice({
             state.isSuccess = true;
             state.user = action.payload;
             localStorage.setItem('user', JSON.stringify(action.payload.name));
+            localStorage.setItem('role', JSON.stringify(action.payload.role));
+            if (action.payload.role === 'root') {
+                state.menuList = root_router;
+            }
+            if (action.payload.role === 'customer_service') {
+                state.menuList = customer_service_router;
+            }
+            if (action.payload.role === 'desainer') {
+                state.menuList = desainer_router;
+            }
+            if (action.payload.role === 'admin_produksi') {
+                state.menuList = admin_produksi_router;
+            }
+            if (action.payload.role === 'owner') {
+                state.menuList = owner_router;
+            }
         });
         builder.addCase(LoginUser.rejected, (state, action) => {
             state.isLoading = false;
@@ -73,6 +88,7 @@ export const authSlice = createSlice({
             state.isSuccess = true;
             state.user = action.payload;
             localStorage.setItem('user', JSON.stringify(action.payload.name));
+            localStorage.setItem('role', JSON.stringify(action.payload.role));
             if (action.payload.role === 'root') {
                 state.menuList = root_router;
             }

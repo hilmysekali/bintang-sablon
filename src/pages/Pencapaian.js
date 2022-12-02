@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Typography } from "@mui/material";
 import Layout from '../layout/Layout';
-import CustomPaginationActionsTable from "../layout/DataTable";
 
 const Pencapaian = props => {
     return (
@@ -10,7 +9,6 @@ const Pencapaian = props => {
             <Typography>Pencapaian</Typography>
 
             {/* Content */}
-            <CustomPaginationActionsTable />
         </Layout>
     );
 }

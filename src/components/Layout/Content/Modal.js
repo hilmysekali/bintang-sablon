@@ -10,7 +10,6 @@ import {
   IconButton
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Form } from '../../useForm';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -50,32 +49,31 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-const Modal = ({ modal, handleClose, children, size, handleSubmit }) => {
+const Modal = ({ handleClose, size, handleSubmit, onSubmit, form, title, jenis, action }) => {
   return (
-    <Form onSubmit={handleSubmit}>
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        fullWidth={true}
-        maxWidth={size}
-        open={modal.isActive}
-      >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {modal.title}
-        </BootstrapDialogTitle>
+    <BootstrapDialog
+      onClose={handleClose}
+      aria-labelledby="customized-dialog-title"
+      fullWidth={true}
+      maxWidth={size}
+      open={jenis === 'edit' || jenis === 'add' || jenis === 'selesai' ? true : false}
+      scroll={'body'}
+    >
+      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        {title}
+      </BootstrapDialogTitle>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent dividers={true}>
-          {children}
+          {form}
         </DialogContent>
         <DialogActions>
-        <Button color="error" variant="outlined" onClick={handleSubmit}>
-            Clear
-          </Button>
-          <Button variant="outlined" onClick={handleSubmit}>
+          {action}
+          <Button type='submit' variant="contained" sx={{ width: '-webkit-fill-available' }}>
             Simpan
           </Button>
         </DialogActions>
-      </BootstrapDialog>
-    </Form>
+      </form>
+    </BootstrapDialog>
   );
 }
 

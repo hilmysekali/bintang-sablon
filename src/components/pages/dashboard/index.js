@@ -1,0 +1,1 @@
+export { default as Pencapaian } from './Pencapaian';

@@ -1,106 +1,137 @@
-import { AccountCircle, Key as KeyIcon } from "@mui/icons-material";
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Grid, TextField } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { LoginUser, reset } from "../features/authSlice";
+import * as React from 'react';
+import io from 'socket.io-client';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LoginUser } from '../features/authSlice';
+import { setNotification } from '../features/notificationSlice';
+import { updateLoading } from '../features/themeSlice';
+import { Grid } from '@mui/material';
+
+const socket = io.connect('http://localhost:3001');
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Powered '}
+            <Link color="inherit" href="https://armadacom.id/" target={'_blank'}>
+                Armadacom
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user, isError, isSuccess, isLoading, message } = useSelector(state => state.auth);
+    const [username, setUsername] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { isSuccess, isLoading } = useSelector(state => state.auth);
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/", { replace: true });
-      dispatch(reset());
-    }
-  }, [user, isSuccess, isError, dispatch, navigate]);
+    React.useEffect(() => {
+        if (isSuccess) {
+            navigate("/", { replace: true });
+            // dispatch(reset());
+        }
+    }, [isSuccess, dispatch, navigate]);
 
-  const Auth = (e) => {
-    e.preventDefault();
-    dispatch(LoginUser({ username, password }));
-  };
+    React.useEffect(() => {
+        document.title = `${process.env.REACT_APP_SITE_TITLE} | Login`;
+    })
 
-  return (
-    <>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '100vh', backgroundColor: '#2727272e' }}
-      >
-        <Card sx={{ minWidth: 500 }}>
-          <CardHeader title={'Login Pak'} style={{ justifyContent: 'center' }}/>
-          <CardContent style={{ justifyContent: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end', p: 2 }}>
-              <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.8 }} />
-              <TextField label="Username" variant="outlined" size="small" />
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end', p: 2 }}>
-              <KeyIcon sx={{ color: 'action.active', mr: 1, my: 0.8 }} />
-              <TextField label="Password" variant="outlined" size="small" />
-            </Box>
-          </CardContent>
-          <CardActions style={{ justifyContent: 'center' }}>
-            <Button variant='contained'>
-              Login Fren
-            </Button>
-          </CardActions>
-        </Card>
-      </Grid>
-      <section className="hero is-fullheight is-fullwidth">
-        <div className="hero-body">
-          <div className="container">
-            <div className="columns is-centered">
-              <div className="column is-4">
-                <form onSubmit={Auth} className="box">
-                  {isError && <p className="has-text-centered">{message}</p>}
-                  <h1 className="title is-2">Sign In</h1>
-                  <div className="field">
-                    <label className="label">Email</label>
-                    <div className="control">
-                      <input
-                        type="text"
-                        className="input"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                  <div className="field">
-                    <label className="label">Password</label>
-                    <div className="control">
-                      <input
-                        type="password"
-                        className="input"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="******"
-                      />
-                    </div>
-                  </div>
-                  <div className="field mt-5">
-                    <button
-                      type="submit"
-                      className="button is-success is-fullwidth"
-                    >
-                      {isLoading ? "Loading..." : "Login"}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
+    const Auth = (e) => {
+        e.preventDefault();
+        dispatch(updateLoading(true));
+        dispatch(LoginUser({ username, password })).then((e) => {
+            dispatch(updateLoading(false));
+            if (e.error) {
+                socket.emit('createAntrian', { message: 'oke' });
+                dispatch(
+                    setNotification(
+                        {
+                            snackbarOpen: true,
+                            snackbarType: "error",
+                            snackbarMessage: "Login Gagal! Username atau Password Salah!"
+                        }
+                    ));
+            } else {
+                dispatch(
+                    setNotification(
+                        {
+                            snackbarOpen: true,
+                            snackbarType: "success",
+                            snackbarMessage: "Berhasil Login!"
+                        }
+                    ));
+            }
+        });
+    };
+
+    return (
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '100vh' }}
+        >
+
+            <Grid item xs={1}>
+                <CssBaseline />
+                <Box
+                    sx={{
+                        // marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        p: 10
+                    }}
+                >
+                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar> */}
+                    <img src='/login-logo.svg' alt='Logo Bintang Sablon' />
+                    <Box component="form" onSubmit={Auth} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Username / Kode User"
+                            autoFocus
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            {isLoading ? "Loading..." : "Login"}
+                        </Button>
+                    </Box>
+                </Box>
+                <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Grid>
+        </Grid>
+    );
+}
 
 export default Login;

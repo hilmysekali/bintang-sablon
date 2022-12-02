@@ -10,7 +10,7 @@ const Footer = () => {
                     fontSize: '14px',
                     fontFamily: 'monospace',
                     textDecoration: 'none',
-                }}>Powered by Armadatech</Typography>
+                }}>Powered by Armadacom</Typography>
             </Divider>
         </>
     );

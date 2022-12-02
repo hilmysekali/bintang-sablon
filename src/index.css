@@ -13,6 +13,24 @@ code {
 }
 
 .active {
-  background-color: #1976d2;
-  color: white !important;
+  background-color: white;
+  color: #717d88 !important;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 4px 5px -5px grey;
 }
+
+.active svg{
+  color: #1976d2 !important;
+}
+
+.MuiDataGrid-filterFormOperatorInput {
+  display: none !important;
+}
+
+.MuiDataGrid-columnHeaders {
+  background-color: #dae0e8 !important;
+}
+/* .MuiDataGrid-filterFormDeleteIcon {
+  display: none !important;
+} */

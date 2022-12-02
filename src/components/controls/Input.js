@@ -1,20 +1,27 @@
-import React from 'react';
-import { TextField } from '@mui/material';
+import { TextField } from "@mui/material";
+import React from "react";
+import { Controller } from "react-hook-form";
 
-const Input = (props) => {
-  const { name, label, value,error=null, onChange, ...required } = props;
+const Input = ({ name, control, label, rules, defaultValue, ...rest }) => {
   return (
-      <TextField
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      rules={rules}
+      render={({ field, fieldState: { error } }) => (
+        <TextField
+          {...field}
+          {...rest}
+          fullWidth
           variant="outlined"
-          label={label}
-          name={name}
-          value={value}
-          onChange={onChange}
-          fullWidth={true}
-          {...required}
-          {...(error && {error:true,helperText:error})}
-      />
-  )
-}
+          error={error !== undefined}
+          helperText={error ? error.message : ''}
+          label={`${label} ${rules['required'] ? '*' : ''}`} 
+          />
+      )}
+    />
+  );
+};
 
 export default Input;

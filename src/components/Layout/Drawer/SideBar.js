@@ -10,11 +10,11 @@ import {
     ListItemIcon,
     useTheme,
     useMediaQuery,
-    Typography
+    Skeleton
 } from '@mui/material';
-import { MoveToInbox, Mail } from '@mui/icons-material';
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { Stack } from '@mui/system';
 
 const CustomListItem = styled(ListItem)(() => ({
     padding: "0",
@@ -62,8 +62,8 @@ const SideBar = ({ setOpen }) => {
                 width: drawerWidth,
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
-                    backgroundColor: '#FFF',
-                    borderRightColor: '#FFF',
+                    backgroundColor: '#e3eaf1',
+                    borderRightColor: '#e3eaf1',
                     width: drawerWidth,
                     boxSizing: 'border-box',
                 },
@@ -74,16 +74,16 @@ const SideBar = ({ setOpen }) => {
             ModalProps={{ onBackdropClick: handleClose }}
         >
             <Toolbar />
-            <Box 
-            sx={{ overflow: 'auto' }}
+            <Box
+                sx={{ overflow: 'auto' }}
             >
                 {menuList.length ? (
-                    <List>
+                    <List sx={{ pr: '7px' }}>
                         {menuList.map((route, index) => (
                             <CustomListItem key={route.label} disablePadding onClick={() => setSidebar(isSmall)} button>
                                 <CustomLinkStyle to={route.path}>
                                     <ListItemIcon>
-                                        {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
+                                        {route.icon}
                                     </ListItemIcon>
                                     <ListItemText primary={route.label} />
                                 </CustomLinkStyle>
@@ -91,7 +91,14 @@ const SideBar = ({ setOpen }) => {
                         ))}
                     </List>
                 ) : (
-                    <Typography sx={{ display: 'none' }}>Menu</Typography>
+                    <List>
+                        <Stack spacing={1}>
+                            <Skeleton variant="rounded" width={230} height={45} animation="wave" />
+                            <Skeleton variant="rounded" width={230} height={45} animation="wave" />
+                            <Skeleton variant="rounded" width={230} height={45} animation="wave" />
+                        </Stack>
+                    </List>
+
                 )}
 
             </Box>

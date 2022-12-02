@@ -1,3 +1,14 @@
+import {
+    Speed as SpeedIcon,
+    FormatListNumbered as FormatListNumberedIcon,
+    Verified as VerifiedIcon,
+    Money as MoneyIcon,
+    ReceiptLong as ReceiptLongIcon,
+    EmojiEvents as EmojiEventsIcon,
+    Skateboarding as SkateboardingIcon,
+    Tune as TuneIcon,
+    Groups as GroupsIcon
+} from '@mui/icons-material';
 /*===================================== */
 /*
  Root Routes
@@ -8,17 +19,17 @@
  */
 const root_router = [
     {
-        icon: '',
+        icon: <GroupsIcon />,
         label: 'Data User',
         path: '/data_user',
     },
     {
-        icon: '',
+        icon: <FormatListNumberedIcon />,
         label: 'Antrian',
         path: '/antrian',
     },
     {
-        icon: '',
+        icon: <ReceiptLongIcon />,
         label: 'Rekap',
         path: '/rekap',
     },
@@ -35,27 +46,27 @@ const root_router = [
  */
 const customer_service_router = [
     {
-        icon: '',
+        icon: <SpeedIcon />,
         label: 'Dashboard',
         path: '/dashboard',
     },
     {
-        icon: '',
+        icon: <FormatListNumberedIcon />,
         label: 'Antrian',
         path: '/antrian',
     },
     {
-        icon: '',
+        icon: <VerifiedIcon />,
         label: 'Checkout',
         path: '/checkout',
     },
     {
-        icon: '',
+        icon: <MoneyIcon />,
         label: 'Pendapatan',
         path: '/pendapatan',
     },
     {
-        icon: '',
+        icon: <ReceiptLongIcon />,
         label: 'Rekap',
         path: '/rekap',
     },
@@ -70,17 +81,17 @@ const customer_service_router = [
  */
 const desainer_router = [
     {
-        icon: '',
+        icon: <FormatListNumberedIcon />,
         label: 'Antrian',
         path: '/antrian',
     },
     {
-        icon: '',
+        icon: <SkateboardingIcon />,
         label: 'Sedang Dikerjakan',
         path: '/my-project',
     },
     {
-        icon: '',
+        icon: <EmojiEventsIcon />,
         label: 'Pencapaian',
         path: '/pencapaian',
     },
@@ -95,17 +106,17 @@ const desainer_router = [
  */
 const admin_produksi_router = [
     {
-        icon: '',
+        icon: <FormatListNumberedIcon />,
         label: 'Antrian',
         path: '/antrian',
     },
     {
-        icon: '',
+        icon: <SkateboardingIcon />,
         label: 'Sedang Dikerjakan',
         path: '/my-project',
     },
     {
-        icon: '',
+        icon: <EmojiEventsIcon />,
         label: 'Pencapaian',
         path: '/pencapaian',
     },
@@ -122,27 +133,27 @@ const admin_produksi_router = [
  */
 const owner_router = [
     {
-        icon: '',
+        icon: <SpeedIcon />,
         label: 'Dashboard',
         path: '/dashboard',
     },
     {
-        icon: '',
+        icon: <MoneyIcon />,
         label: 'Pendapatan',
         path: '/pendapatan',
     },
     {
-        icon: '',
+        icon: <EmojiEventsIcon />,
         label: 'Pencapaian',
         path: '/pencapaian',
     },
     {
-        icon: '',
+        icon: <ReceiptLongIcon />,
         label: 'Rekap',
         path: '/rekap',
     },
     {
-        icon: '',
+        icon: <TuneIcon />,
         label: 'Pengaturan',
         path: '/pengaturan',
     },
