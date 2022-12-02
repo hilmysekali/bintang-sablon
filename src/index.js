@@ -9,8 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    // <BrowserRouter basename='/bintang-sablon'>
-    <BrowserRouter>
+    <BrowserRouter basename='/bintang-sablon'>
       <Provider store={store}>
         <Routes>
           <Route path="/*" element={<App />} />
