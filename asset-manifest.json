@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.32fc6f33.css",
-    "main.js": "/static/js/main.8d22a1e5.js",
-    "index.html": "/index.html",
-    "main.32fc6f33.css.map": "/static/css/main.32fc6f33.css.map",
-    "main.8d22a1e5.js.map": "/static/js/main.8d22a1e5.js.map"
+    "main.css": "/bintang-sablon/static/css/main.32fc6f33.css",
+    "main.js": "/bintang-sablon/static/js/main.ac807e76.js",
+    "index.html": "/bintang-sablon/index.html",
+    "main.32fc6f33.css.map": "/bintang-sablon/static/css/main.32fc6f33.css.map",
+    "main.ac807e76.js.map": "/bintang-sablon/static/js/main.ac807e76.js.map"
   },
   "entrypoints": [
     "static/css/main.32fc6f33.css",
-    "static/js/main.8d22a1e5.js"
+    "static/js/main.ac807e76.js"
   ]
 }
