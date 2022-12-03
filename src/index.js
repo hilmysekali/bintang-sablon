@@ -9,7 +9,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <HashRouter basename='/bintang-sablon'>
+  <HashRouter>
     <Provider store={store}>
       <Routes>
         <Route path="/*" element={<App />} />
